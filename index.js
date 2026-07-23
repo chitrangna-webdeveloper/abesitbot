@@ -24,6 +24,9 @@ require("./commands/monthly")(bot);
 require("./commands/joke")(bot);
 require("./commands/about")(bot);
 require("./commands/rank")(bot);
+require("./commands/ban")(bot);
+require("./commands/unban")(bot);
+
 
 //temporary 
 bot.onText(/\/id/, (msg) => {

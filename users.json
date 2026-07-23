@@ -4,7 +4,7 @@
     "points": 10,
     "tasks": 1,
     "lastDone": 1784707005869,
-    "messages": 197,
+    "messages": 199,
     "stickers": null,
     "joined": "Wed Jul 22 2026",
     "photos": null
@@ -22,7 +22,7 @@
     "points": 10,
     "tasks": 1,
     "lastDone": 1784707069971,
-    "messages": 121,
+    "messages": 128,
     "joined": "Wed Jul 22 2026",
     "stickers": 2
   },
@@ -193,7 +193,19 @@
     "name": "Vishu(gurjar)",
     "points": 0,
     "tasks": 0,
-    "messages": 3,
+    "messages": 10,
+    "stickers": 0,
+    "photos": 0,
+    "documents": 0,
+    "reactions": 0,
+    "joined": "22 July 2026",
+    "lastDone": 0
+  },
+  "8033298428": {
+    "name": "Tanya",
+    "points": 0,
+    "tasks": 0,
+    "messages": 0,
     "stickers": 0,
     "photos": 0,
     "documents": 0,
