@@ -4,16 +4,17 @@
     "points": 10,
     "tasks": 1,
     "lastDone": 1784707005869,
-    "messages": 58,
+    "messages": 195,
     "stickers": null,
-    "joined": "Wed Jul 22 2026"
+    "joined": "Wed Jul 22 2026",
+    "photos": null
   },
   "8149821915": {
     "name": "h1{S41Y4M} 👾",
     "points": 10,
     "tasks": 1,
     "lastDone": 1784707050114,
-    "messages": 57,
+    "messages": 124,
     "joined": "Wed Jul 22 2026"
   },
   "6425679989": {
@@ -21,15 +22,15 @@
     "points": 10,
     "tasks": 1,
     "lastDone": 1784707069971,
-    "messages": 45,
+    "messages": 121,
     "joined": "Wed Jul 22 2026",
-    "stickers": null
+    "stickers": 2
   },
   "6161868442": {
     "name": "Akhil",
     "points": 15,
     "tasks": 1,
-    "messages": 29,
+    "messages": 43,
     "stickers": 0,
     "reactions": 0,
     "joined": "Wed Jul 22 2026",
@@ -130,21 +131,21 @@
   },
   "8723019661": {
     "name": "! hemant",
-    "points": 0,
-    "tasks": 0,
-    "messages": 2,
+    "points": 11,
+    "tasks": 1,
+    "messages": 38,
     "stickers": 0,
-    "photos": 0,
+    "photos": 1,
     "documents": 0,
     "reactions": 0,
     "joined": "22 July 2026",
-    "lastDone": 0
+    "lastDone": 1784774664196
   },
   "8772038930": {
     "name": "Chandra Shekhar",
     "points": 0,
     "tasks": 0,
-    "messages": 0,
+    "messages": 1,
     "stickers": 0,
     "photos": 0,
     "documents": 0,
@@ -157,6 +158,42 @@
     "points": 0,
     "tasks": 0,
     "messages": 0,
+    "stickers": 0,
+    "photos": 0,
+    "documents": 0,
+    "reactions": 0,
+    "joined": "22 July 2026",
+    "lastDone": 0
+  },
+  "8993841015": {
+    "name": "KIRA",
+    "points": 14,
+    "tasks": 1,
+    "messages": 0,
+    "stickers": 0,
+    "photos": 0,
+    "documents": 0,
+    "reactions": 0,
+    "joined": "22 July 2026",
+    "lastDone": 1784774664203
+  },
+  "6977610807": {
+    "name": "Anurag",
+    "points": 0,
+    "tasks": 0,
+    "messages": 1,
+    "stickers": 0,
+    "photos": 0,
+    "documents": 0,
+    "reactions": 0,
+    "joined": "22 July 2026",
+    "lastDone": 0
+  },
+  "7965694980": {
+    "name": "Vishu(gurjar)",
+    "points": 0,
+    "tasks": 0,
+    "messages": 1,
     "stickers": 0,
     "photos": 0,
     "documents": 0,

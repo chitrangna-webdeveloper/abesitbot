@@ -20,6 +20,10 @@ require("./events/newMember")(bot);
 require("./events/message")(bot);
 require("./commands/leaderboard")(bot);
 require("./commands/active")(bot);
+require("./commands/monthly")(bot);
+require("./commands/joke")(bot);
+require("./commands/about")(bot);
+require("./commands/rank")(bot);
 
 //temporary 
 bot.onText(/\/id/, (msg) => {
