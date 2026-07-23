@@ -1,8 +1,9 @@
 const { users, saveUsers } = require("../utils/database");
+const autoDelete = require("../utils/autoDelete");
 
 module.exports = (bot) => {
 
-  bot.onText(/\/done/, (msg) => {
+  bot.onText(/\/done/, async (msg) => {
 
     const id = msg.from.id;
     const name = msg.from.first_name;
@@ -37,11 +38,15 @@ module.exports = (bot) => {
         (24 * 60 * 60 * 1000 - timePassed) / (1000 * 60 * 60)
       );
 
-      return bot.sendMessage(
+      const sent = await bot.sendMessage(
         msg.chat.id,
         `⏳ ${name}, you already completed today's task.\n\n🔥 Come back after ${remaining} hours!`
       );
 
+      autoDelete(bot, msg.chat.id, sent.message_id);
+      autoDelete(bot, msg.chat.id, msg.message_id);
+
+      return;
     }
 
     // Add Points
@@ -49,29 +54,30 @@ module.exports = (bot) => {
 
     users[id].points += points;
     users[id].tasks += 1;
-    // Automatic Nickname
 
-if (users[id].tasks >= 100) {
-  users[id].nickname = "👑 Code Legend";
-}
-else if (users[id].tasks >= 50) {
-  users[id].nickname = "🥇 Code Master";
-}
-else if (users[id].tasks >= 30) {
-  users[id].nickname = "🚀 Rising Developer";
-}
-else if (users[id].tasks >= 15) {
-  users[id].nickname = "💻 Consistent Coder";
-}
-else if (users[id].tasks >= 5) {
-  users[id].nickname = "🌟 Beginner Coder";
-}
+    // Automatic Nickname
+    if (users[id].tasks >= 100) {
+      users[id].nickname = "👑 Code Legend";
+    }
+    else if (users[id].tasks >= 50) {
+      users[id].nickname = "🥇 Code Master";
+    }
+    else if (users[id].tasks >= 30) {
+      users[id].nickname = "🚀 Rising Developer";
+    }
+    else if (users[id].tasks >= 15) {
+      users[id].nickname = "💻 Consistent Coder";
+    }
+    else if (users[id].tasks >= 5) {
+      users[id].nickname = "🌟 Beginner Coder";
+    }
+
     users[id].lastDone = now;
     users[id].name = name;
 
     saveUsers();
 
-    bot.sendMessage(
+    const sent = await bot.sendMessage(
       msg.chat.id,
       `🎉 *Well Done ${name}!* 👏
 
@@ -85,11 +91,18 @@ ${users[id].points}
 📚 Tasks Completed:
 ${users[id].tasks}
 
+🏅 Nickname:
+${users[id].nickname || "No Rank Yet"}
+
 🚀 Keep Coding!`,
       {
         parse_mode: "Markdown"
       }
     );
+
+    // Auto Delete after 5 seconds
+    autoDelete(bot, msg.chat.id, sent.message_id);
+    autoDelete(bot, msg.chat.id, msg.message_id);
 
   });
 

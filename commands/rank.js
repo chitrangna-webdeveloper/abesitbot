@@ -1,16 +1,21 @@
 const { users } = require("../utils/database");
+const autoDelete = require("../utils/autoDelete");
 
 module.exports = (bot) => {
 
-  bot.onText(/\/rank/, (msg) => {
+  bot.onText(/\/rank/, async (msg) => {
 
     const id = msg.from.id;
 
     if (!users[id]) {
-      return bot.sendMessage(
+      const sent = await bot.sendMessage(
         msg.chat.id,
         "❌ Please use /start first."
       );
+
+      autoDelete(bot, msg.chat.id, sent.message_id);
+      autoDelete(bot, msg.chat.id, msg.message_id);
+      return;
     }
 
     // XP ke hisaab se sort
@@ -23,7 +28,7 @@ module.exports = (bot) => {
     const totalUsers = sorted.length;
     const user = users[id];
 
-    bot.sendMessage(
+    const sent = await bot.sendMessage(
       msg.chat.id,
       `🏅 *Your Rank*
 
@@ -36,6 +41,10 @@ module.exports = (bot) => {
         parse_mode: "Markdown",
       }
     );
+
+    // Auto delete bot reply and user's command
+    autoDelete(bot, msg.chat.id, sent.message_id);
+    autoDelete(bot, msg.chat.id, msg.message_id);
 
   });
 

@@ -1,3 +1,5 @@
+const autoDelete = require("../utils/autoDelete");
+
 const jokes = [
   "{name}, coding itni mat karo ki keyboard bhi leave application de de. 😂",
 
@@ -22,15 +24,25 @@ const jokes = [
 
 module.exports = (bot) => {
 
-  bot.onText(/\/joke/, (msg) => {
+  bot.onText(/\/joke/, async (msg) => {
 
     const name = msg.from.first_name;
-    const joke = jokes[Math.floor(Math.random() * jokes.length)]
-      .replace("{name}", name);
 
-    bot.sendMessage(msg.chat.id, `😂 *Joke Time!*\n\n${joke}`, {
-      parse_mode: "Markdown"
-    });
+    const joke = jokes[
+      Math.floor(Math.random() * jokes.length)
+    ].replace("{name}", name);
+
+    const sent = await bot.sendMessage(
+      msg.chat.id,
+      `😂 *Joke Time!*\n\n${joke}`,
+      {
+        parse_mode: "Markdown"
+      }
+    );
+
+    // Auto delete after 5 seconds
+    autoDelete(bot, msg.chat.id, sent.message_id);
+    autoDelete(bot, msg.chat.id, msg.message_id);
 
   });
 

@@ -1,4 +1,5 @@
 const { users, saveUsers } = require("../utils/database");
+const autoDelete = require("../utils/autoDelete");
 
 module.exports = (bot) => {
 
@@ -13,11 +14,11 @@ module.exports = (bot) => {
     "Create a Responsive Navigation Bar."
   ];
 
-  bot.onText(/\/task/, (msg) => {
+  bot.onText(/\/task/, async (msg) => {
 
     const randomTask = tasks[Math.floor(Math.random() * tasks.length)];
 
-    bot.sendMessage(
+    const sent = await bot.sendMessage(
       msg.chat.id,
 `🚀 *Today's Coding Challenge*
 
@@ -33,6 +34,10 @@ ${randomTask}
         parse_mode: "Markdown",
       }
     );
+
+    // Auto delete bot reply and user's command
+    autoDelete(bot, msg.chat.id, sent.message_id);
+    autoDelete(bot, msg.chat.id, msg.message_id);
 
   });
 

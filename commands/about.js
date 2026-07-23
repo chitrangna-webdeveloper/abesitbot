@@ -1,13 +1,17 @@
 const path = require("path");
+const autoDelete = require("../utils/autoDelete");
 
 module.exports = (bot) => {
 
-  bot.onText(/\/about/, (msg) => {
+  bot.onText(/\/about/, async (msg) => {
 
     const photo = path.join(__dirname, "../assets/abesit.jpg");
 
-    bot.sendPhoto(msg.chat.id, photo, {
-      caption: `🏫 *About ABESIT*
+    const sent = await bot.sendPhoto(
+      msg.chat.id,
+      photo,
+      {
+        caption: `🏫 *About ABESIT*
 
 ✨ *ABES Institute of Technology (ABESIT), Ghaziabad* is a premier engineering institute dedicated to innovation, excellence, and career-focused education.
 
@@ -23,8 +27,13 @@ module.exports = (bot) => {
 🤖 *ABESIT Buddy* is your coding companion, helping you stay consistent through daily tasks, XP, leaderboards, challenges, and much more.
 
 💙 *Learn • Code • Build • Grow*`,
-      parse_mode: "Markdown"
-    });
+        parse_mode: "Markdown"
+      }
+    );
+
+    // Auto delete photo message and user's command
+    autoDelete(bot, msg.chat.id, sent.message_id);
+    autoDelete(bot, msg.chat.id, msg.message_id);
 
   });
 

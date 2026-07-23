@@ -1,15 +1,23 @@
 const { users } = require("../utils/database");
+const autoDelete = require("../utils/autoDelete");
 
 module.exports = (bot) => {
 
-  bot.onText(/\/monthly/, (msg) => {
+  bot.onText(/\/monthly/, async (msg) => {
 
     const champions = Object.values(users)
-      .sort((a, b) => b.monthlyXP - a.monthlyXP)
+      .sort((a, b) => (b.monthlyXP || 0) - (a.monthlyXP || 0))
       .slice(0, 10);
 
     if (champions.length === 0) {
-      return bot.sendMessage(msg.chat.id, "📭 No monthly data found.");
+      const sent = await bot.sendMessage(
+        msg.chat.id,
+        "📭 No monthly data found."
+      );
+
+      autoDelete(bot, msg.chat.id, sent.message_id);
+      autoDelete(bot, msg.chat.id, msg.message_id);
+      return;
     }
 
     let text = "🏆 *Monthly Champions*\n\n";
@@ -22,14 +30,22 @@ module.exports = (bot) => {
         index === 2 ? "🥉" : "🏅";
 
       text += `${medal} ${user.name}\n`;
-      text += `⭐ ${user.monthlyXP} XP\n`;
-      text += `✅ ${user.monthlyTasks} Tasks\n\n`;
+      text += `⭐ ${user.monthlyXP || 0} XP\n`;
+      text += `✅ ${user.monthlyTasks || 0} Tasks\n\n`;
 
     });
 
-    bot.sendMessage(msg.chat.id, text, {
-      parse_mode: "Markdown"
-    });
+    const sent = await bot.sendMessage(
+      msg.chat.id,
+      text,
+      {
+        parse_mode: "Markdown"
+      }
+    );
+
+    // Auto delete bot reply and user's command
+    autoDelete(bot, msg.chat.id, sent.message_id);
+    autoDelete(bot, msg.chat.id, msg.message_id);
 
   });
 

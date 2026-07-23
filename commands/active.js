@@ -1,18 +1,19 @@
 const { users } = require("../utils/database");
+const autoDelete = require("../utils/autoDelete");
 
 module.exports = (bot) => {
 
-  bot.onText(/\/active/, (msg) => {
+  bot.onText(/\/active/, async (msg) => {
 
     const activeUsers = Object.values(users)
       .map(user => {
 
         const activity =
-          user.messages +
-          (user.stickers * 2) +
-          (user.photos * 3) +
-          (user.documents * 4) +
-          user.reactions;
+          (user.messages || 0) +
+          ((user.stickers || 0) * 2) +
+          ((user.photos || 0) * 3) +
+          ((user.documents || 0) * 4) +
+          (user.reactions || 0);
 
         return {
           name: user.name,
@@ -24,21 +25,41 @@ module.exports = (bot) => {
       .slice(0, 10);
 
     if (activeUsers.length === 0) {
-      return bot.sendMessage(msg.chat.id, "📭 No activity found.");
+      const sent = await bot.sendMessage(
+        msg.chat.id,
+        "📭 No activity found."
+      );
+
+      autoDelete(bot, msg.chat.id, sent.message_id);
+      autoDelete(bot, msg.chat.id, msg.message_id);
+      return;
     }
 
     let text = "🔥 *Most Active Members*\n\n";
 
     activeUsers.forEach((user, index) => {
 
-      text += `${index + 1}. ${user.name}\n`;
+      const medal =
+        index === 0 ? "🥇" :
+        index === 1 ? "🥈" :
+        index === 2 ? "🥉" : "🏅";
+
+      text += `${medal} ${user.name}\n`;
       text += `⭐ Activity Score: ${user.activity}\n\n`;
 
     });
 
-    bot.sendMessage(msg.chat.id, text, {
-      parse_mode: "Markdown"
-    });
+    const sent = await bot.sendMessage(
+      msg.chat.id,
+      text,
+      {
+        parse_mode: "Markdown"
+      }
+    );
+
+    // Auto delete bot reply and user's command
+    autoDelete(bot, msg.chat.id, sent.message_id);
+    autoDelete(bot, msg.chat.id, msg.message_id);
 
   });
 
