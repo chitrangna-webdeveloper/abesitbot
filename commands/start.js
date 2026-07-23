@@ -4,6 +4,7 @@ module.exports = (bot) => {
 
   bot.onText(/\/start/, async (msg) => {
 
+    const isPrivate = msg.chat.type === "private";
     const sent = await bot.sendMessage(
       msg.chat.id,
       `🎉 *Welcome to ABESIT Buddy!*
@@ -17,6 +18,7 @@ Type /help to see all available commands.
 🚀 Happy Coding!`,
       {
         parse_mode: "Markdown",
+        ...(isPrivate && { message_effect_id: "5046509860389126442" })
       }
     );
 

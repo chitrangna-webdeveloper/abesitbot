@@ -1,7 +1,16 @@
-
-
 {
-  "scripts":{
+  "name": "abesitbot",
+  "version": "1.0.0",
+  "description": "A Telegram bot for Abesit students.",
+  "main": "index.js",
+  "scripts": {
     "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "node-telegram-bot-api": "1.2.0"
   }
 }
