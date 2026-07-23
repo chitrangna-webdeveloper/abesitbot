@@ -16,9 +16,8 @@ module.exports = (bot) => {
 👑 /monthly - Monthly Champions
 😂 /joke - Get a Random Funny Joke
 🎖️ /rank - Check Your Rank
-📜 /rules - Group Rules
-💡 /motivation - Get a Motivational Quote
-🛠️ /admin - Admin Panel (Admins Only)
+
+
 
 🚀 *More exciting features coming soon...*`,
       {
