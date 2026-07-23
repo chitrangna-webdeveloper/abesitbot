@@ -4,7 +4,7 @@
     "points": 10,
     "tasks": 1,
     "lastDone": 1784707005869,
-    "messages": 47,
+    "messages": 58,
     "stickers": null,
     "joined": "Wed Jul 22 2026"
   },
@@ -13,7 +13,7 @@
     "points": 10,
     "tasks": 1,
     "lastDone": 1784707050114,
-    "messages": 49,
+    "messages": 57,
     "joined": "Wed Jul 22 2026"
   },
   "6425679989": {
@@ -21,7 +21,7 @@
     "points": 10,
     "tasks": 1,
     "lastDone": 1784707069971,
-    "messages": 35,
+    "messages": 45,
     "joined": "Wed Jul 22 2026",
     "stickers": null
   },
@@ -29,7 +29,7 @@
     "name": "Akhil",
     "points": 15,
     "tasks": 1,
-    "messages": 28,
+    "messages": 29,
     "stickers": 0,
     "reactions": 0,
     "joined": "Wed Jul 22 2026",
@@ -142,6 +142,18 @@
   },
   "8772038930": {
     "name": "Chandra Shekhar",
+    "points": 0,
+    "tasks": 0,
+    "messages": 0,
+    "stickers": 0,
+    "photos": 0,
+    "documents": 0,
+    "reactions": 0,
+    "joined": "22 July 2026",
+    "lastDone": 0
+  },
+  "8672461747": {
+    "name": "Sangharsh",
     "points": 0,
     "tasks": 0,
     "messages": 0,
