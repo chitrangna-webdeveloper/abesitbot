@@ -34,6 +34,7 @@ require("./commands/about")(bot);
 require("./commands/rank")(bot);
 require("./commands/ban")(bot);
 require("./commands/unban")(bot);
+require("./scheduler/announcements")(bot);
 
 
 //temporary 
