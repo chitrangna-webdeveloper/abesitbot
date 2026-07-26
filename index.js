@@ -44,7 +44,7 @@ require("./events/newMember")(bot);
 require("./events/message")(bot);
 
 // Scheduler
-require("./scheduler/annoucements")(bot);
+require("./scheduler/announcements")(bot);
 
 // Temporary Command
 bot.onText(/\/id/, (msg) => {
