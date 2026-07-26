@@ -9,14 +9,13 @@ process.on("uncaughtException", (error) => {
 
 require("dotenv").config();
 
-const TelegramBot = require("node-telegram-bot-api");
+const { TelegramBot } = require("node-telegram-bot-api");
 
 // Check BOT_TOKEN
 if (!process.env.BOT_TOKEN) {
   console.error("❌ BOT_TOKEN not found! Check Railway Variables.");
   process.exit(1);
 }
-
 const bot = new TelegramBot(process.env.BOT_TOKEN, {
   polling: true,
 });
