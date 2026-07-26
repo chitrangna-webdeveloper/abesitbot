@@ -1,6 +1,6 @@
-console.log("BOT_TOKEN =", process.env.BOT_TOKEN);
 console.log("🚀 VERSION TEST 999");
-process.on("unhandledRejection", (reason, promise) => {
+
+process.on("unhandledRejection", (reason) => {
   console.error("❌ Unhandled Rejection:", reason);
 });
 
@@ -10,6 +10,7 @@ process.on("uncaughtException", (error) => {
 
 require("dotenv").config();
 
+// Telegram Bot
 const { TelegramBot } = require("node-telegram-bot-api");
 
 // Check BOT_TOKEN
@@ -17,12 +18,17 @@ if (!process.env.BOT_TOKEN) {
   console.error("❌ BOT_TOKEN not found! Check Railway Variables.");
   process.exit(1);
 }
+
+console.log("BOT TOKEN:", JSON.stringify(process.env.BOT_TOKEN));
+console.log("TOKEN LENGTH:", process.env.BOT_TOKEN.length);
+
 const bot = new TelegramBot(process.env.BOT_TOKEN, {
   polling: true,
 });
 
 console.log("🤖 Bot Running...");
 
+// Database
 require("./utils/database");
 
 // Commands
@@ -47,10 +53,7 @@ require("./events/message")(bot);
 // Scheduler
 require("./scheduler/announcements")(bot);
 
-// Temporary Command
+// Test Command
 bot.onText(/\/id/, (msg) => {
-  bot.sendMessage(
-    msg.chat.id,
-    `🆔 Your Telegram ID is: ${msg.from.id}`
-  );
+  bot.sendMessage(msg.chat.id, `🆔 Your Telegram ID: ${msg.from.id}`);
 });
