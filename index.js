@@ -1,3 +1,4 @@
+console.log("BOT_TOKEN =", process.env.BOT_TOKEN);
 console.log("🚀 VERSION TEST 999");
 process.on("unhandledRejection", (reason, promise) => {
   console.error("❌ Unhandled Rejection:", reason);
