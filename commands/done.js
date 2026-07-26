@@ -25,11 +25,12 @@ module.exports = (bot) => {
           month: "long",
           year: "numeric"
         }),
-        lastDone: 0
+        lastDone: 0,
+        nickname: "No Rank Yet"
       };
     }
 
-    // 24 Hours Check
+    // Check if 24 hours have passed
     const timePassed = now - users[id].lastDone;
 
     if (timePassed < 24 * 60 * 60 * 1000) {
@@ -45,36 +46,31 @@ module.exports = (bot) => {
 
       autoDelete(bot, msg.chat.id, sent.message_id);
       autoDelete(bot, msg.chat.id, msg.message_id);
-
       return;
     }
 
-    // Add Points
-    const points = Math.floor(Math.random() * 11) + 10;
+    // ✅ Fixed Points
+    const points = 250;
 
     users[id].points += points;
     users[id].tasks += 1;
+    users[id].lastDone = now;
+    users[id].name = name;
 
     // Automatic Nickname
     if (users[id].tasks >= 100) {
       users[id].nickname = "👑 Code Legend";
-    }
-    else if (users[id].tasks >= 50) {
+    } else if (users[id].tasks >= 50) {
       users[id].nickname = "🥇 Code Master";
-    }
-    else if (users[id].tasks >= 30) {
+    } else if (users[id].tasks >= 30) {
       users[id].nickname = "🚀 Rising Developer";
-    }
-    else if (users[id].tasks >= 15) {
+    } else if (users[id].tasks >= 15) {
       users[id].nickname = "💻 Consistent Coder";
-    }
-    else if (users[id].tasks >= 5) {
+    } else if (users[id].tasks >= 5) {
       users[id].nickname = "🌟 Beginner Coder";
     }
 
-    users[id].lastDone = now;
-    users[id].name = name;
-
+    // Save Data
     saveUsers();
 
     const sent = await bot.sendMessage(
@@ -85,14 +81,11 @@ module.exports = (bot) => {
 
 ⭐ Earned: *${points} XP*
 
-🏆 Total XP:
-${users[id].points}
+🏆 Total XP: *${users[id].points}*
 
-📚 Tasks Completed:
-${users[id].tasks}
+📚 Tasks Completed: *${users[id].tasks}*
 
-🏅 Nickname:
-${users[id].nickname || "No Rank Yet"}
+🏅 Nickname: *${users[id].nickname || "No Rank Yet"}*
 
 🚀 Keep Coding!`,
       {
@@ -100,7 +93,6 @@ ${users[id].nickname || "No Rank Yet"}
       }
     );
 
-    // Auto Delete after 5 seconds
     autoDelete(bot, msg.chat.id, sent.message_id);
     autoDelete(bot, msg.chat.id, msg.message_id);
 
