@@ -45,6 +45,7 @@ require("./commands/about")(bot);
 require("./commands/rank")(bot);
 require("./commands/ban")(bot);
 require("./commands/unban")(bot);
+require("./commands/potato")(bot);
 
 // Events
 require("./events/newMember")(bot);
