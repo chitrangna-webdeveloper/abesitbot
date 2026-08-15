@@ -56,6 +56,17 @@ require("./events/message")(bot);
 
 // Scheduler
 require("./scheduler/announcements")(bot);
+// Attendance Commands
+require("./commands/present")(bot);
+require("./commands/absent")(bot);
+require("./commands/holiday")(bot);
+require("./commands/myattendance")(bot);
+require("./commands/attendancereport")(bot);
+
+// Attendance Scheduler
+require("./scheduler/attendanceReminder")(bot);
+// Command Menu Setup
+require("./setupCommands")(bot);
 
 // Test Command (/id)
 bot.onText(/\/id/, (msg) => {
