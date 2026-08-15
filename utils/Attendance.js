@@ -1,13 +1,13 @@
 const fs = require("fs");
 const path = require("path");
+const { users } = require("./database");
 
 const dataFile = path.join(__dirname, "..", "attendance.json");
 
-let data = { members: {}, records: {} };
+let data = { records: {} };
 
 if (fs.existsSync(dataFile)) {
   data = JSON.parse(fs.readFileSync(dataFile, "utf8"));
-  if (!data.members) data.members = {};
   if (!data.records) data.records = {};
 }
 
@@ -18,13 +18,6 @@ function save() {
 // India timezone me aaj ki date "YYYY-MM-DD" format me
 function todayKey() {
   return new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
-}
-
-// Jab bhi koi /present ya /absent bheje, use members list me register kar do
-function registerMember(id, name, username) {
-  id = String(id);
-  data.members[id] = { name, username: username || null };
-  save();
 }
 
 // status: "present" | "absent"
@@ -85,8 +78,14 @@ function getUserStats(id) {
   return { present, absent, holidays, totalMarked: present + absent };
 }
 
+// Members ki list existing users.json (utils/database.js) se hi leta hai
+// -- alag se register karne ki zarurat nahi, jo bhi group me active hai wo yahan hoga
 function getAllMembers() {
-  return data.members;
+  const members = {};
+  for (const id in users) {
+    members[id] = { name: users[id].name, username: users[id].username || null };
+  }
+  return members;
 }
 
 // Aaj jinhone abhi tak attendance nahi lagayi (holiday din ko exclude)
@@ -94,10 +93,11 @@ function getUnmarkedToday() {
   const rec = getTodayRecord();
   if (rec.holiday) return [];
 
+  const members = getAllMembers();
   const unmarked = [];
-  for (const id in data.members) {
+  for (const id in members) {
     if (!rec.marks[id]) {
-      unmarked.push({ id, ...data.members[id] });
+      unmarked.push({ id, ...members[id] });
     }
   }
   return unmarked;
@@ -105,16 +105,16 @@ function getUnmarkedToday() {
 
 // Sabki total stats ek saath (admin report ke liye)
 function getAllStats() {
+  const members = getAllMembers();
   const stats = {};
-  for (const id in data.members) {
-    stats[id] = { ...data.members[id], ...getUserStats(id) };
+  for (const id in members) {
+    stats[id] = { ...members[id], ...getUserStats(id) };
   }
   return stats;
 }
 
 module.exports = {
   todayKey,
-  registerMember,
   markAttendance,
   markHoliday,
   isHolidayToday,
