@@ -7,8 +7,6 @@ module.exports = function (bot) {
     const name =
       msg.from.first_name + (msg.from.last_name ? " " + msg.from.last_name : "");
 
-    attendance.registerMember(userId, name, msg.from.username);
-
     if (attendance.isHolidayToday()) {
       return bot.sendMessage(
         chatId,
