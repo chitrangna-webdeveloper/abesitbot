@@ -1,9 +1,11 @@
 module.exports = {
-  owner: 8431000716,
+  owner: 8431000716, // Chitrangna
 
   admins: [
-    8149821915,
-    6425679989,
-    6060308932
-  ]
+    8431000716, // Chitrangna
+    8149821915, // Satyam
+    8723019661, // Hemant
+    6425679989, // Ansh
+    6161868442, // Akhil
+  ],
 };
