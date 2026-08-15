@@ -57,10 +57,10 @@ require("./events/message")(bot);
 // Scheduler
 require("./scheduler/announcements")(bot);
 // Attendance Commands
-require("./commands/present")(bot);
-require("./commands/absent")(bot);
-require("./commands/holiday")(bot);
-require("./commands/myattendance")(bot);
+require("./commands/Present")(bot);
+require("./commands/Absent")(bot);
+require("./commands/Holiday")(bot);
+require("./commands/Myattendance")(bot);
 require("./commands/attendancereport")(bot);
 
 // Attendance Scheduler
